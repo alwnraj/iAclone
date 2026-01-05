@@ -1,0 +1,112 @@
+/* Focus mode styling */
+
+body.focus-mode .cm-line {
+    color: var(--text-dimmed);
+    transition: color var(--transition-medium);
+}
+
+body.focus-mode .cm-activeLine {
+    color: var(--text-primary);
+}
+
+body.focus-mode .cm-activeLine * {
+    color: inherit !important;
+}
+
+/* Sentence focus mode - highlights current sentence */
+body.focus-sentence .cm-line {
+    color: var(--text-dimmed);
+    transition: color var(--transition-medium);
+}
+
+body.focus-sentence .cm-activeLine {
+    color: var(--text-primary);
+}
+
+/* Paragraph focus mode - highlights current paragraph */
+body.focus-paragraph .cm-line {
+    color: var(--text-dimmed);
+    transition: color var(--transition-medium);
+}
+
+body.focus-paragraph .cm-activeLine {
+    color: var(--text-primary);
+}
+
+/* More visible paragraph context */
+body.focus-paragraph .cm-line:has(+ .cm-activeLine),
+body.focus-paragraph .cm-activeLine + .cm-line {
+    color: var(--text-secondary);
+}
+
+/* Typewriter mode - centers the cursor vertically */
+body.focus-typewriter .cm-line {
+    color: var(--text-dimmed);
+    transition: color var(--transition-medium);
+}
+
+body.focus-typewriter .cm-activeLine {
+    color: var(--text-primary);
+}
+
+body.focus-typewriter #editor-container {
+    scroll-behavior: smooth;
+}
+
+body.focus-typewriter .cm-content {
+    padding-top: 50vh;
+    padding-bottom: 50vh;
+}
+
+/* Hide status bar and theme toggle in focus mode for maximum distraction-free */
+body.focus-mode #status-bar,
+body.focus-mode #theme-toggle,
+body.focus-mode #view-options-container {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-medium);
+}
+
+body.focus-mode #status-bar:hover,
+body.focus-mode #theme-toggle:hover,
+body.focus-mode #view-options-container:hover {
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+/* Also apply to specific focus mode variants */
+body.focus-sentence #status-bar,
+body.focus-sentence #theme-toggle,
+body.focus-sentence #view-options-container,
+body.focus-paragraph #status-bar,
+body.focus-paragraph #theme-toggle,
+body.focus-paragraph #view-options-container,
+body.focus-typewriter #status-bar,
+body.focus-typewriter #theme-toggle,
+body.focus-typewriter #view-options-container {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-medium);
+}
+
+body.focus-sentence #status-bar:hover,
+body.focus-sentence #theme-toggle:hover,
+body.focus-sentence #view-options-container:hover,
+body.focus-paragraph #status-bar:hover,
+body.focus-paragraph #theme-toggle:hover,
+body.focus-paragraph #view-options-container:hover,
+body.focus-typewriter #status-bar:hover,
+body.focus-typewriter #theme-toggle:hover,
+body.focus-typewriter #view-options-container:hover {
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+/* Smooth transitions for focus mode */
+body.focus-mode .cm-content,
+body.focus-sentence .cm-content,
+body.focus-paragraph .cm-content,
+body.focus-typewriter .cm-content {
+    transition: all var(--transition-medium);
+}
+

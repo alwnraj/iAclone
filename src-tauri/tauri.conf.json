@@ -1,0 +1,50 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "iA Clone",
+  "version": "0.1.0",
+  "identifier": "com.iaclone.app",
+  "build": {
+    "frontendDist": "../dist",
+    "beforeDevCommand": "vite",
+    "devUrl": "http://localhost:5500",
+    "beforeBuildCommand": "vite build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "iA Clone",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 600,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "frameworks": [],
+      "minimumSystemVersion": "10.13",
+      "exceptionDomain": "",
+      "signingIdentity": null,
+      "entitlements": null
+    }
+  }
+}

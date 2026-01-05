@@ -1,0 +1,52 @@
+/* Light and Dark theme definitions */
+
+/* Light theme (default) */
+:root,
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-dimmed: #c0c0c0;
+    --border-color: #e0e0e0;
+    --accent-color: #007aff;
+    --selection-bg: #b3d7ff;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #8a8a8a;
+    --text-dimmed: #4a4a4a;
+    --border-color: #3a3a3a;
+    --accent-color: #0a84ff;
+    --selection-bg: #264f78;
+}
+
+/* System preference detection */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2a2a2a;
+        --text-primary: #e0e0e0;
+        --text-secondary: #8a8a8a;
+        --text-dimmed: #4a4a4a;
+        --border-color: #3a3a3a;
+        --accent-color: #0a84ff;
+        --selection-bg: #264f78;
+    }
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--selection-bg);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background-color: var(--selection-bg);
+    color: var(--text-primary);
+}
+

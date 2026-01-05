@@ -1,0 +1,373 @@
+/* Main layout and base styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Typography */
+    --font-mono: 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    --font-size-base: 18px;
+    --line-height: 1.6;
+    --letter-spacing: 0.01em;
+    
+    /* Layout */
+    --max-width: 70ch;
+    --padding: 2rem;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-medium: 0.3s ease;
+}
+
+body {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color var(--transition-medium), color var(--transition-medium);
+}
+
+#app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+#editor-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    padding: var(--padding);
+}
+
+#editor {
+    width: 100%;
+    max-width: var(--max-width);
+    min-height: 100%;
+}
+
+#preview-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--padding);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+}
+
+#preview-container.hidden {
+    display: none;
+}
+
+#preview {
+    width: 100%;
+    max-width: var(--max-width);
+}
+
+/* View options and theme toggle container */
+#view-options-container {
+    position: fixed;
+    top: 1rem;
+    right: 3.5rem;
+    z-index: 1000;
+}
+
+#view-options-toggle {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    opacity: 0.3;
+}
+
+#view-options-toggle:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    opacity: 1;
+}
+
+#view-options-toggle:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* View options dropdown */
+#view-options-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    z-index: 1001;
+}
+
+#view-options-dropdown.hidden {
+    display: none;
+}
+
+.view-section {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.view-section:last-child {
+    border-bottom: none;
+}
+
+.view-section-header {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: default;
+    user-select: none;
+}
+
+.view-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color var(--transition-fast);
+}
+
+.view-option:hover {
+    background-color: var(--bg-primary);
+}
+
+.option-indicator {
+    width: 16px;
+    margin-right: 8px;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.view-option.active .option-indicator::before {
+    content: '−';
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    opacity: 0.3;
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    opacity: 1;
+}
+
+#theme-toggle:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Formatting toolbar */
+#formatting-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    font-size: 12px;
+    color: var(--text-primary);
+    z-index: 999;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.toolbar-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.2rem 0.5rem;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color var(--transition-fast);
+    white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--bg-primary);
+}
+
+.toolbar-btn:active {
+    background-color: var(--border-color);
+}
+
+.toolbar-btn.format-bold {
+    font-weight: bold;
+}
+
+.toolbar-btn.format-italic {
+    font-style: italic;
+}
+
+/* Dropdown styles */
+.toolbar-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-arrow {
+    font-size: 9px;
+    margin-left: 3px;
+    opacity: 0.6;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 4px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 140px;
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.5rem 0.9rem;
+    text-align: left;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.dropdown-menu button:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+.dropdown-menu button:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.dropdown-menu button:hover {
+    background-color: var(--bg-primary);
+}
+
+.toolbar-dropdown.active .dropdown-menu {
+    display: block;
+}
+
+/* Adjust editor container to account for toolbar */
+#editor-container {
+    padding-bottom: 28px;
+}
+
+/* Scrollbar styling - subtle overlay style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.2);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.4);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* Hide scrollbar by default, show on hover */
+#editor-container,
+#preview-container {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+}
+
+#editor-container::-webkit-scrollbar-thumb,
+#preview-container::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+#editor-container:hover::-webkit-scrollbar-thumb,
+#preview-container:hover::-webkit-scrollbar-thumb,
+#editor-container::-webkit-scrollbar-thumb:active,
+#preview-container::-webkit-scrollbar-thumb:active {
+    background: rgba(128, 128, 128, 0.2);
+}
+
+#editor-container:hover::-webkit-scrollbar-thumb:hover,
+#preview-container:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.4);
+}
+
