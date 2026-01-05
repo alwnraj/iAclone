@@ -2,6 +2,8 @@
 
 A minimalist, distraction-free markdown writing app built with Tauri and Rust. Fast, lightweight, and beautiful.
 
+![iA Clone Screenshot](./screenshot.png)
+
 ## Features
 
 ### Core Writing Experience
