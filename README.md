@@ -1,6 +1,6 @@
 # iA Clone
 
-A minimalist, distraction-free markdown writing app built with Tauri and Rust. Fast, lightweight, and beautiful.
+A minimalist, distraction-free markdown writing app built with Tauri and Rust.
 
 ![iA Clone Screenshot](./screenshot.png)
 
