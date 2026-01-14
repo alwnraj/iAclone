@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iA Clone - A minimalist, distraction-free markdown writing app built with Tauri and Rust. Fast, lightweight, and beautiful.">
+    <meta name="keywords" content="markdown editor, writing app, distraction-free, minimalist, Tauri, Rust">
+    <meta name="author" content="iA Clone">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="iA Clone - Minimalist Markdown Writing App">
+    <meta property="og:description" content="A minimalist, distraction-free markdown writing app built with Tauri and Rust. Fast, lightweight, and beautiful.">
+    <meta property="og:type" content="website">
+    
+    <title>iA Clone - Minimalist Markdown Writing App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" aria-label="iA Clone - Go to homepage">iA Clone</a>
+            <div class="nav-links">
+                <a href="#features" aria-label="Navigate to Features section">Features</a>
+                <a href="#tech" aria-label="Navigate to Tech Stack section">Tech</a>
+                <a href="#install" aria-label="Navigate to Installation section">Install</a>
+                <a href="https://github.com/alwnraj/iAclone" class="nav-github" target="_blank" rel="noopener noreferrer" aria-label="View iA Clone on GitHub (opens in new tab)">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+        <div class="container" id="main-content">
+            <h1 class="hero-title" id="hero-title">iA Clone</h1>
+            <p class="hero-tagline">A minimalist, distraction-free markdown writing app</p>
+            <p class="hero-description">Fast, lightweight, and beautiful. Built with Tauri and Rust.</p>
+            <div class="hero-screenshot">
+                <img src="screenshot.png" alt="Screenshot of iA Clone markdown editor showing a dark-themed interface with markdown content, formatting toolbar at the bottom, and word count display" class="screenshot-image">
+            </div>
+            <div class="hero-cta">
+                <a href="https://github.com/alwnraj/iAclone" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="View iA Clone repository on GitHub (opens in new tab)">View on GitHub</a>
+                <a href="#install" class="btn btn-secondary" aria-label="Navigate to installation instructions">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features" aria-labelledby="features-title">
+        <div class="container">
+            <h2 class="section-title" id="features-title">Features</h2>
+            <div class="features-grid" role="list">
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">✍️</div>
+                    <h3 class="feature-title">Distraction-Free Writing</h3>
+                    <p class="feature-description">Clean, centered layout with no unnecessary UI elements. Focus on what matters: your words.</p>
+                </article>
+                
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">👁️</div>
+                    <h3 class="feature-title">Live Markdown Preview</h3>
+                    <p class="feature-description">Side-by-side preview with synchronized scrolling. See your formatted content as you write.</p>
+                </article>
+                
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">🎯</div>
+                    <h3 class="feature-title">Focus Modes</h3>
+                    <p class="feature-description">Sentence, paragraph, or typewriter focus modes to enhance concentration and flow.</p>
+                </article>
+                
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">✨</div>
+                    <h3 class="feature-title">Writing Assistant</h3>
+                    <p class="feature-description">Intelligent style checking for filler words, clichés, and redundancies to improve your prose.</p>
+                </article>
+                
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">🌓</div>
+                    <h3 class="feature-title">Light & Dark Themes</h3>
+                    <p class="feature-description">System-aware themes with manual toggle. Choose what works best for your environment.</p>
+                </article>
+                
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">⌨️</div>
+                    <h3 class="feature-title">Keyboard-First Design</h3>
+                    <p class="feature-description">All features accessible via keyboard shortcuts. Work efficiently without touching the mouse.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="tech" aria-labelledby="tech-title">
+        <div class="container">
+            <h2 class="section-title" id="tech-title">Built With</h2>
+            <div class="tech-grid" role="list">
+                <div class="tech-item" role="listitem">
+                    <h3 class="tech-name">Rust + Tauri</h3>
+                    <p class="tech-description">Lightweight native app (~3MB installer) with blazing fast performance</p>
+                </div>
+                <div class="tech-item" role="listitem">
+                    <h3 class="tech-name">Vanilla JavaScript</h3>
+                    <p class="tech-description">No framework bloat. Just pure, efficient code</p>
+                </div>
+                <div class="tech-item" role="listitem">
+                    <h3 class="tech-name">CodeMirror 6</h3>
+                    <p class="tech-description">Powerful editor with markdown support and extensibility</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="install" aria-labelledby="install-title">
+        <div class="container">
+            <h2 class="section-title" id="install-title">Installation</h2>
+            <div class="install-content">
+                <div class="install-section">
+                    <h3 class="install-subtitle">Prerequisites</h3>
+                    <ul class="install-list">
+                        <li>Node.js (v18 or higher)</li>
+                        <li>Rust (latest stable)</li>
+                        <li>Platform-specific dependencies:
+                            <ul>
+                                <li><strong>macOS:</strong> Xcode Command Line Tools</li>
+                                <li><strong>Linux:</strong> webkit2gtk, libssl-dev, libgtk-3-dev</li>
+                                <li><strong>Windows:</strong> WebView2 (usually pre-installed)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="install-section">
+                    <h3 class="install-subtitle">Build from Source</h3>
+                    <div class="code-block" role="region" aria-label="Build commands">
+                        <code class="code-line"># Install dependencies</code>
+                        <code class="code-line">npm install</code>
+                        <code class="code-line"></code>
+                        <code class="code-line"># Run in development mode</code>
+                        <code class="code-line">npm run dev</code>
+                        <code class="code-line"></code>
+                        <code class="code-line"># Build for production</code>
+                        <code class="code-line">npm run build</code>
+                    </div>
+                    <p class="install-note">The built app will be in <code>src-tauri/target/release/bundle/</code></p>
+                </div>
+                
+                <div class="install-section">
+                    <p class="install-link">For detailed documentation, see the <a href="../README.md" aria-label="Read the README documentation">README</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">iA Clone</h3>
+                    <p class="footer-description">A minimalist markdown writing app</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/alwnraj/iAclone" target="_blank" rel="noopener noreferrer" aria-label="View iA Clone on GitHub (opens in new tab)">GitHub</a></li>
+                        <li><a href="../README.md" aria-label="Read the documentation">Documentation</a></li>
+                        <li><a href="../LICENSE" aria-label="View the MIT license">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 iA Clone. Open source software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('.nav').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - navHeight - 20; // 20px extra spacing
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
