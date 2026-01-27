@@ -7,10 +7,15 @@
     <dict>
       <key>CFBundleTypeName</key>
       <string>Markdown Document</string>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>md</string>
+        <string>markdown</string>
+      </array>
       <key>LSItemContentTypes</key>
       <array>
         <string>net.daringfireball.markdown</string>
-        <string>public.plain-text</string>
+        <string>public.markdown</string>
       </array>
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
