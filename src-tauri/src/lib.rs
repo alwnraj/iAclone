@@ -79,14 +79,16 @@ pub fn run() {
       if let tauri::RunEvent::Opened { urls } = event {
         let state = app.state::<AppState>();
         let mut opened_file_paths = state.opened_file_paths.lock().unwrap();
-        *opened_file_paths = urls.iter().map(|x| x.to_string()).collect();
+        // Prefer decoded filesystem paths to avoid percent-encoding issues.
+        *opened_file_paths = urls
+          .iter()
+          .filter_map(|u| u.to_file_path().ok())
+          .map(|p| p.to_string_lossy().to_string())
+          .collect();
         
         // If window already exists, emit immediately
         if let Some(window) = app.get_webview_window("main") {
-          let formatted_paths: Vec<String> = opened_file_paths
-            .iter()
-            .map(|url| url.replace("file://", ""))
-            .collect();
+          let formatted_paths: Vec<String> = opened_file_paths.iter().cloned().collect();
           
           if !formatted_paths.is_empty() {
             window.emit("file-opened", formatted_paths)

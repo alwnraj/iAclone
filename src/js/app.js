@@ -66,7 +66,19 @@ function newFile() {
 
 async function loadFileFromPath(path) {
     try {
-        const content = await readTextFile(path);
+        let content;
+        try {
+            content = await readTextFile(path);
+        } catch (error) {
+            const msg = String(error);
+            // If FS scope blocks the path, fall back to backend read (not scoped).
+            if (msg.includes('forbidden path')) {
+                content = await invoke('read_file', { path });
+            } else {
+                throw error;
+            }
+        }
+
         setEditorContent(content);
         currentFilePath = path;
         hasUnsavedChanges = false;
