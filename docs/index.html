@@ -42,8 +42,8 @@
                 <img src="screenshot.png" alt="Screenshot of iA Clone markdown editor showing a dark-themed interface with markdown content, formatting toolbar at the bottom, and word count display" class="screenshot-image">
             </div>
             <div class="hero-cta">
-                <a href="https://github.com/alwnraj/iAclone" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="View iA Clone repository on GitHub (opens in new tab)">View on GitHub</a>
-                <a href="#install" class="btn btn-secondary" aria-label="Navigate to installation instructions">Get Started</a>
+                <a href="iA-Clone.dmg" class="btn btn-primary" download aria-label="Download iA Clone for macOS (Apple Silicon)">Download for Mac</a>
+                <a href="https://github.com/alwnraj/iAclone" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">View Source</a>
             </div>
         </div>
     </section>
@@ -119,7 +119,18 @@
             <h2 class="section-title" id="install-title">Installation</h2>
             <div class="install-content">
                 <div class="install-section">
-                    <h3 class="install-subtitle">Prerequisites</h3>
+                    <h3 class="install-subtitle">Download</h3>
+                    <p>Get started instantly with our pre-built installer for Apple Silicon Macs (M1/M2/M3):</p>
+                    <div class="hero-cta" style="margin-top: 1.5rem;">
+                        <a href="iA-Clone.dmg" class="btn btn-primary" download aria-label="Download iA Clone for macOS (Apple Silicon)">Download for Mac</a>
+                    </div>
+                    <p class="install-note" style="margin-top: 1rem;">After downloading, open the DMG and drag iA Clone to your Applications folder.</p>
+                </div>
+                
+                <div class="install-section">
+                    <h3 class="install-subtitle">Build from Source</h3>
+                    <p>For developers who want to build from source or target other platforms:</p>
+                    <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1rem;">Prerequisites</h4>
                     <ul class="install-list">
                         <li>Node.js (v18 or higher)</li>
                         <li>Rust (latest stable)</li>
@@ -131,11 +142,7 @@
                             </ul>
                         </li>
                     </ul>
-                </div>
-                
-                <div class="install-section">
-                    <h3 class="install-subtitle">Build from Source</h3>
-                    <div class="code-block" role="region" aria-label="Build commands">
+                    <div class="code-block" role="region" aria-label="Build commands" style="margin-top: 1rem;">
                         <code class="code-line"># Install dependencies</code>
                         <code class="code-line">npm install</code>
                         <code class="code-line"></code>
@@ -146,10 +153,7 @@
                         <code class="code-line">npm run build</code>
                     </div>
                     <p class="install-note">The built app will be in <code>src-tauri/target/release/bundle/</code></p>
-                </div>
-                
-                <div class="install-section">
-                    <p class="install-link">For detailed documentation, see the <a href="../README.md" aria-label="Read the README documentation">README</a></p>
+                    <p class="install-link" style="margin-top: 1rem;">For detailed documentation, see the <a href="../README.md" aria-label="Read the README documentation">README</a></p>
                 </div>
             </div>
         </div>

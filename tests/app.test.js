@@ -11,6 +11,14 @@ vi.mock('@tauri-apps/plugin-fs', () => ({
   writeTextFile: vi.fn()
 }));
 
+vi.mock('@tauri-apps/api/core', () => ({
+  invoke: vi.fn()
+}));
+
+vi.mock('@tauri-apps/api/event', () => ({
+  listen: vi.fn(() => Promise.resolve(() => {})) // Returns unlisten function
+}));
+
 describe('App Module - Statistics', () => {
   beforeEach(() => {
     document.body.innerHTML = `
@@ -121,6 +129,35 @@ describe('App Module - Window Title', () => {
       : `Untitled${hasUnsavedChanges ? ' •' : ''} - iA Clone`;
     
     expect(title).toBe('Untitled - iA Clone');
+  });
+});
+
+describe('App Module - File Open Handling', () => {
+  beforeEach(async () => {
+    vi.clearAllMocks();
+    document.body.innerHTML = `
+      <div id="editor"></div>
+      <div id="preview"></div>
+      <div id="word-count">0 Words</div>
+      <div id="theme-toggle"></div>
+    `;
+  });
+
+  it('should set up file-opened event listener', async () => {
+    const { listen } = await import('@tauri-apps/api/event');
+    
+    await listen('file-opened', vi.fn());
+    
+    expect(listen).toHaveBeenCalledWith('file-opened', expect.any(Function));
+  });
+
+  it('should call on_file_open_ready command', async () => {
+    const { invoke } = await import('@tauri-apps/api/core');
+    invoke.mockResolvedValue(undefined);
+    
+    await invoke('on_file_open_ready');
+    
+    expect(invoke).toHaveBeenCalledWith('on_file_open_ready');
   });
 });
 

@@ -22,6 +22,17 @@ if (typeof window !== 'undefined') {
   };
 }
 
+// Mock @tauri-apps/api/core
+vi.mock('@tauri-apps/api/core', () => ({
+  invoke: vi.fn()
+}));
+
+// Mock @tauri-apps/api/event
+vi.mock('@tauri-apps/api/event', () => ({
+  listen: vi.fn(() => Promise.resolve(() => {})), // Returns unlisten function
+  emit: vi.fn()
+}));
+
 // Mock localStorage with actual storage
 const localStorageMock = (() => {
   let store = {};

@@ -5,6 +5,8 @@ import { initToolbar, applyBold, applyItalic, applyLink, applyStrikethrough } fr
 import { initViewOptions } from './viewOptions.js';
 import { open, save } from '@tauri-apps/plugin-dialog';
 import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
+import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 
 // State
 let currentFilePath = null;
@@ -62,6 +64,27 @@ function newFile() {
     }
 }
 
+async function loadFileFromPath(path) {
+    try {
+        const content = await readTextFile(path);
+        setEditorContent(content);
+        currentFilePath = path;
+        hasUnsavedChanges = false;
+        updateWindowTitle();
+        updateStats(content);
+        updatePreview(content);
+        
+        // Focus the editor
+        const editor = getEditorView();
+        if (editor) {
+            editor.focus();
+        }
+    } catch (error) {
+        console.error('Error loading file:', error);
+        alert('Failed to load file: ' + error);
+    }
+}
+
 async function openFile() {
     try {
         const selected = await open({
@@ -73,11 +96,7 @@ async function openFile() {
         });
         
         if (selected) {
-            const content = await readTextFile(selected);
-            setEditorContent(content);
-            currentFilePath = selected;
-            hasUnsavedChanges = false;
-            updateWindowTitle();
+            await loadFileFromPath(selected);
         }
     } catch (error) {
         console.error('Error opening file:', error);
@@ -338,6 +357,27 @@ Press **Cmd/Ctrl + D** to enter focus mode. Only the current line will be highli
     
     // Focus editor
     editor.focus();
+    
+    // Setup file open handling for macOS
+    setupFileOpenHandling();
+}
+
+async function setupFileOpenHandling() {
+    // Listen for file-opened events (when app is already running)
+    const unlisten = await listen('file-opened', (event) => {
+        const paths = event.payload;
+        if (paths && paths.length > 0) {
+            // Load the first file (handle multiple files if needed)
+            loadFileFromPath(paths[0]);
+        }
+    });
+    
+    // Call backend to check if files were opened on app startup
+    try {
+        await invoke('on_file_open_ready');
+    } catch (error) {
+        console.error('Error checking for opened files:', error);
+    }
 }
 
 // Start the app

@@ -1,5 +1,12 @@
 use std::fs;
 use std::path::PathBuf;
+use std::sync::{Arc, Mutex};
+use tauri::{AppHandle, Emitter, Manager};
+
+#[derive(Default)]
+struct AppState {
+    opened_file_paths: Arc<Mutex<Vec<String>>>,
+}
 
 #[tauri::command]
 fn read_file(path: String) -> Result<String, String> {
@@ -19,9 +26,34 @@ fn get_file_path() -> Result<Option<PathBuf>, String> {
     Ok(None)
 }
 
+#[tauri::command]
+fn on_file_open_ready(app: AppHandle) {
+    #[cfg(target_os = "macos")]
+    {
+        let state = app.state::<AppState>();
+        let opened_file_paths = state.opened_file_paths.lock().unwrap();
+        
+        if !opened_file_paths.is_empty() {
+            // Remove `file://` prefix from all URLs and convert to file paths
+            let formatted_paths: Vec<String> = opened_file_paths
+                .iter()
+                .map(|url| {
+                    url.replace("file://", "")
+                })
+                .collect();
+            
+            app.emit("file-opened", formatted_paths)
+                .unwrap_or_else(|err| eprintln!("Emit error: {:?}", err));
+        }
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+  let app_state = AppState::default();
+  
   tauri::Builder::default()
+    .manage(app_state)
     .plugin(tauri_plugin_dialog::init())
     .plugin(tauri_plugin_fs::init())
     .setup(|app| {
@@ -37,10 +69,32 @@ pub fn run() {
     .invoke_handler(tauri::generate_handler![
         read_file,
         write_file,
-        get_file_path
+        get_file_path,
+        on_file_open_ready
     ])
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+    .build(tauri::generate_context!())
+    .expect("error while running tauri application")
+    .run(|app, event| {
+      #[cfg(target_os = "macos")]
+      if let tauri::RunEvent::Opened { urls } = event {
+        let state = app.state::<AppState>();
+        let mut opened_file_paths = state.opened_file_paths.lock().unwrap();
+        *opened_file_paths = urls.iter().map(|x| x.to_string()).collect();
+        
+        // If window already exists, emit immediately
+        if let Some(window) = app.get_webview_window("main") {
+          let formatted_paths: Vec<String> = opened_file_paths
+            .iter()
+            .map(|url| url.replace("file://", ""))
+            .collect();
+          
+          if !formatted_paths.is_empty() {
+            window.emit("file-opened", formatted_paths)
+              .unwrap_or_else(|err| eprintln!("Emit error: {:?}", err));
+          }
+        }
+      }
+    });
 }
 
 #[cfg(test)]
@@ -119,5 +173,27 @@ mod tests {
         
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), None);
+    }
+
+    #[test]
+    fn test_app_state_initialization() {
+        let state = AppState::default();
+        let paths = state.opened_file_paths.lock().unwrap();
+        
+        assert!(paths.is_empty());
+    }
+
+    #[test]
+    fn test_app_state_storage() {
+        let state = AppState::default();
+        {
+            let mut paths = state.opened_file_paths.lock().unwrap();
+            paths.push("file:///path/to/test.md".to_string());
+            paths.push("file:///path/to/another.md".to_string());
+        }
+        
+        let paths = state.opened_file_paths.lock().unwrap();
+        assert_eq!(paths.len(), 2);
+        assert_eq!(paths[0], "file:///path/to/test.md");
     }
 }
