@@ -71,6 +71,16 @@ npm run build
 
 The built app will be in `src-tauri/target/release/bundle/`.
 
+### macOS: “is damaged and can’t be opened”
+
+The `docs/iA-Clone.dmg` currently contains an app that is **not notarized** (Gatekeeper may show “iA Clone is damaged…” after download).
+
+After dragging the app into `/Applications`, remove the quarantine attribute and try again:
+
+```bash
+xattr -cr "/Applications/iA Clone.app"
+```
+
 ## Keyboard Shortcuts
 
 ### File Operations
